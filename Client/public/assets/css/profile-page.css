@@ -1,0 +1,23 @@
+.profile-card-area {
+  width: 30%;
+}
+
+.edit-profile-area {
+  width: 70%;
+}
+
+.edit-info-content {
+  margin-top: 10px;
+  padding-bottom: 5px;
+  border-bottom: solid grey;
+}
+
+.profile-avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+

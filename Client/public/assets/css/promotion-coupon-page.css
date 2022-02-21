@@ -1,0 +1,48 @@
+.coupon-card {
+  border: 5px dotted #bbb;
+  width: 320px;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  max-width: 600px;
+  float: left;
+}
+
+.container {
+  padding: 2px 16px;
+  background-color: #f1f1f1;
+}
+
+.promo {
+  background: #ccc;
+  padding: 3px;
+  font-weight: bold;
+}
+
+.expire {
+  color: red;
+}
+
+.coupon-body {
+  background-color: #ffffff;
+  border-radius: 12px;
+}
+
+.coupon-footer {
+  background-color: gainsboro;
+  border-radius: 12px;
+}
+
+.promotion-page-header, .promotion-page-body {
+  border-radius: 15px;
+  margin-top: 5px;
+}
+
+.promotion-page-footer {
+}
+
+.progress-bar-area {
+  margin-left: auto;
+  margin-right: auto;
+}
+

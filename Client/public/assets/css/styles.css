@@ -1,0 +1,35 @@
+.form-group {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  margin-top: 10px;
+}
+
+.footer-basic {
+  background-color: #37434d;
+  color: #ffffff;
+}
+
+.main-content {
+  margin-bottom: 10px;
+  min-height: calc(100vh - 280px);
+}
+
+fieldset {
+  overflow: hidden;
+  margin-bottom: 5px;
+  display: inline-block;
+  width: 270px;
+}
+
+label {
+  float: left;
+  width: 70px;
+}
+
+input {
+  width: 160px;
+}
+

@@ -1,0 +1,108 @@
+stages:
+  - install_dependencies
+  - build
+  - test
+  - build_docker
+  - docker_up
+  - end_to_end_Testing
+  - docker_down
+  
+cache:
+  paths:
+    - Client/node_modules/
+
+before_script:
+  - echo "Start CI/CD"
+
+after_script:
+  - echo "End CI/CD"
+
+
+install_npm:
+  stage: install_dependencies
+  script:
+    - cd Client
+    - npm ci
+
+build_server:
+  stage: build
+  script:
+    - cd Server
+    - ./gradlew build -x test
+  cache:
+    key: "$CI_COMMIT_SHA"
+    policy: push
+    paths:
+      - Server/build
+  artifacts:
+    paths:
+      - Server/build/libs/*.jar
+    expire_in: 1 week
+
+
+sonarqube-check:
+  stage: test
+  image: gradle:jre11-slim
+  variables:
+
+    # Defines the location of the analysis task cache
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  
+
+    # Tells git to fetch all the branches of the project, required by the analysis task
+    GIT_DEPTH: "0"  
+
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+
+  script: 
+      - cd Server
+      - ./gradlew sonarqube
+  only:
+    - main # or the name of your main branch
+
+test_cypress:
+  image: node:lts-alpine
+  stage: end_to_end_Testing
+  script:
+    - cd Client
+    # start the server in the background and run cypress ci
+    - npm run cy:parallel
+  only:
+    - main
+
+test_server:
+  stage: test
+  script:
+    - cd Server
+    - ./gradlew check
+
+
+docker_build:
+  stage: build_docker
+  script: 
+    - docker-compose build
+  only: 
+    - main
+
+docker_run:
+  stage: docker_up
+  script: 
+    - docker-compose up
+  only:
+    - main # or the name of your main branch
+
+docker_shutdown:
+  stage: docker_down
+  script: 
+    - docker-compose down
+  only:
+    - main # or the name of your main branch
+
+# Frontend CI/CD:
+# https://medium.com/@lars.willemsens/using-gitlab-ci-cd-to-deploy-a-spring-boot-application-in-google-cloud-3b22474e3ffc
+# Based on https://github.com/cypress-io/cypress-example-kitchensink/blob/master/.gitlab-ci.yml
+# Server CI/CD:
+
+# I found that there are rooms to optimize workflow here but it will need time for researching @@

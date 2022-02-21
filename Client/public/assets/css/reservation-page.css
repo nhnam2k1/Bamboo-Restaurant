@@ -1,0 +1,20 @@
+.reservation {
+  border-radius: 12px;
+  border: solid;
+  margin-top: 5px;
+}
+
+.reservation-page-header, .reservation-page-body {
+  margin-top: 5px;
+  border-radius: 10px;
+}
+
+.reservation-detail {
+  flex: 70%;
+}
+
+.reservation-buttons {
+  flex: 30%;
+  text-align: right;
+}
+
